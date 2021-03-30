@@ -5,6 +5,8 @@
 #include <sstream>
 
 Machine::Machine()
+    : bImage(320,240),
+      iDrawer(bImage)
 {
     opMap.emplace("movi", &CreateOp<MovI>);
     opMap.emplace("exit", &CreateOp<Exit>);
@@ -28,6 +30,10 @@ Machine::Machine()
     opMap.emplace("storei", &CreateOp<Storei>);
     opMap.emplace("loadsc", &CreateOp<Loadsc>);
     opMap.emplace("storesc", &CreateOp<Storesc>);
+    opMap.emplace("pendown", &CreateOp<Pendown>);
+    opMap.emplace("penup", &CreateOp<Penup>);
+    opMap.emplace("fwd", &CreateOp<Fwd>);
+    opMap.emplace("back", &CreateOp<Back>);
     
     reg.emplace("r0", 0);
     reg.emplace("r1", 0);
@@ -49,6 +55,9 @@ Machine::Machine()
     flag.emplace("test", false);
     flag.emplace("pen", false);
     
+    bImage.set_all_channels(0,0,0);
+    iDrawer.pen_width(1);
+    iDrawer.pen_color(255, 255, 255);
 }
 
 void Machine::ReadFile(const std::string source)
@@ -70,7 +79,39 @@ void Machine::ReadFile(const std::string source)
     }
 }
 
-void Machine::SetReg(std::string name, int val){ reg[name] = val; }
+void Machine::SetReg(std::string name, int val)
+{
+    reg[name] = val;
+    if(name.compare("tc") == 0){
+        switch(val){
+            case 0:
+                iDrawer.pen_color(255, 255, 255);
+                break;
+            case 1:
+                iDrawer.pen_color(255, 255, 0);
+                break;
+            case 2:
+                iDrawer.pen_color(255, 0, 255);
+                break;
+            case 3:
+                iDrawer.pen_color(255, 0, 0);
+                break;
+            case 4:
+                iDrawer.pen_color(0, 255, 255);
+                break;
+            case 5:
+                iDrawer.pen_color(0, 255, 0);
+                break;
+            case 6:
+                iDrawer.pen_color(0, 0, 255);
+                break;
+            case 7:
+                iDrawer.pen_color(0, 0, 0);
+                break;
+        }
+    }
+    
+}
 
 void Machine::SetFlag(std::string name, bool val) { flag[name] = val; }
 
@@ -93,6 +134,7 @@ void Machine::Execute()
         print(output);
         printStack(stackOutput);
     }
+    bImage.save_image("output.bmp");
 }
 
 void Machine::printStack(std::ofstream& output)
@@ -149,4 +191,19 @@ int Machine::getStack(int index)
 void Machine::setStack(int index, int val)
 {
     stack.at(index) = val;
+}
+
+void Machine::fwd(int reg1)
+{
+    
+    int tx = GetRegVal("tx");
+    int ty = GetRegVal("ty");
+    float tr = GetRegVal("tr") * 0.0174533f;
+    int endx = tx + static_cast<int>(std::cos(tr) * reg1);
+    int endy = ty + static_cast<int>(std::sin(tr) * reg1);
+    if(GetFlagVal("pen")){
+        iDrawer.line_segment(tx, ty, endx, endy);
+    }
+    SetReg("tx", endx);
+    SetReg("ty", endy);
 }

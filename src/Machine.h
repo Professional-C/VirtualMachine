@@ -1,5 +1,6 @@
 #pragma once
 #include "Ops.h"
+#include "../img/bitmap_image.hpp"
 #include <memory>
 #include <vector>
 #include <map>
@@ -20,6 +21,8 @@ public:
     void pushStack(int reg);
     int getStack(int index);
     void setStack(int index, int val);
+    void fwd(int reg1);
+    void setColor();
 
 private:
 	std::vector<std::shared_ptr<Op>> mOps;
@@ -27,6 +30,8 @@ private:
     std::map<std::string, int> reg;
     std::map<std::string, bool> flag;
     std::vector<int> stack;
+    bitmap_image bImage;
+    image_drawer iDrawer;
 };
 
 template <typename T>

@@ -155,3 +155,25 @@ void Storesc::Execute(Machine &machine)
     int val = machine.GetRegVal(std::get<1>(mParameters));
     machine.setStack(index, val);
 }
+
+void Pendown::Execute(Machine &machine)
+{
+    machine.SetFlag("pen", true);
+}
+
+void Penup::Execute(Machine &machine)
+{
+    machine.SetFlag("pen", false);
+}
+
+void Fwd::Execute(Machine &machine)
+{
+    int val = machine.GetRegVal(std::get<0>(mParameters));
+    machine.fwd(val);
+}
+
+void Back::Execute(Machine &machine)
+{
+    int val = machine.GetRegVal(std::get<0>(mParameters));
+    machine.fwd(-val);
+}

@@ -158,3 +158,27 @@ struct Storesc : OpBase<std::string, std::string>
     const char* GetName() const override { return "storesc"; }
     void Execute(class Machine& machine) override;
 };
+
+struct Pendown : OpBase<>
+{
+    const char* GetName() const override { return "pendown"; }
+    void Execute(class Machine& machine) override;
+};
+
+struct Penup : OpBase<>
+{
+    const char* GetName() const override { return "penup"; }
+    void Execute(class Machine& machine) override;
+};
+
+struct Fwd : OpBase<std::string>
+{
+    const char* GetName() const override { return "fwd"; }
+    void Execute(class Machine& machine) override;
+};
+
+struct Back : OpBase<std::string>
+{
+    const char* GetName() const override { return "back"; }
+    void Execute(class Machine& machine) override;
+};
