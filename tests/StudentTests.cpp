@@ -20,36 +20,36 @@ TEST_CASE("Basic tests (Part 1)", "[student]")
 		bool result = CheckTextFilesSame("log.txt", "expected/basic01-log.txt");
 		REQUIRE(result);
 	}
-	//SECTION("basic02")
-	//{
-	//	const char* argv[] = {
-	//		"tests/tests",
-	//		"input/basic02.psm"
-	//	};
-	//	ProcessCommandArgs(2, argv);
-	//	bool result = CheckTextFilesSame("log.txt", "expected/basic02-log.txt");
-	//	REQUIRE(result);
-	//}
-	//SECTION("basic03")
-	//{
-	//	const char* argv[] = {
-	//		"tests/tests",
-	//		"input/basic03.psm"
-	//	};
-	//	ProcessCommandArgs(2, argv);
-	//	bool result = CheckTextFilesSame("log.txt", "expected/basic03-log.txt");
-	//	REQUIRE(result);
-	//}
-	//SECTION("basic04")
-	//{
-	//	const char* argv[] = {
-	//		"tests/tests",
-	//		"input/basic04.psm"
-	//	};
-	//	ProcessCommandArgs(2, argv);
-	//	bool result = CheckTextFilesSame("log.txt", "expected/basic04-log.txt");
-	//	REQUIRE(result);
-	//}
+	SECTION("basic02")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/basic02.psm"
+		};
+		ProcessCommandArgs(2, argv);
+		bool result = CheckTextFilesSame("log.txt", "expected/basic02-log.txt");
+		REQUIRE(result);
+	}
+	SECTION("basic03")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/basic03.psm"
+		};
+		ProcessCommandArgs(2, argv);
+		bool result = CheckTextFilesSame("log.txt", "expected/basic03-log.txt");
+		REQUIRE(result);
+	}
+	SECTION("basic04")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/basic04.psm"
+		};
+		ProcessCommandArgs(2, argv);
+		bool result = CheckTextFilesSame("log.txt", "expected/basic04-log.txt");
+		REQUIRE(result);
+	}
 }
 
 //TEST_CASE("Stack tests (Part 2)", "[student]")

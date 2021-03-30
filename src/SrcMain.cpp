@@ -4,5 +4,8 @@
 
 void ProcessCommandArgs(int argc, const char* argv[])
 {
-	// TODO
+    std::string source = argv[1];
+    Machine machine = Machine();
+    machine.ReadFile(source);
+    machine.Execute();
 }
