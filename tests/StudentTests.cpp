@@ -52,33 +52,33 @@ TEST_CASE("Basic tests (Part 1)", "[student]")
 	}
 }
 
-//TEST_CASE("Stack tests (Part 2)", "[student]")
-//{
-//	SECTION("stack01")
-//	{
-//		const char* argv[] = {
-//			"tests/tests",
-//			"input/stack01.psm"
-//		};
-//		ProcessCommandArgs(2, argv);
-//		bool result = CheckTextFilesSame("log.txt", "expected/stack01-log.txt");
-//		REQUIRE(result);
-//		bool resultStack = CheckTextFilesSame("stack.txt", "expected/stack01-stack.txt");
-//		REQUIRE(resultStack);
-//	}
-//	SECTION("fibonacci")
-//	{
-//		const char* argv[] = {
-//			"tests/tests",
-//			"input/fibonacci.psm"
-//		};
-//		ProcessCommandArgs(2, argv);
-//		bool result = CheckTextFilesSame("log.txt", "expected/fibonacci-log.txt");
-//		REQUIRE(result);
-//		bool resultStack = CheckTextFilesSame("stack.txt", "expected/fibonacci-stack.txt");
-//		REQUIRE(resultStack);
-//	}
-//}
+TEST_CASE("Stack tests (Part 2)", "[student]")
+{
+	SECTION("stack01")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/stack01.psm"
+		};
+		ProcessCommandArgs(2, argv);
+		bool result = CheckTextFilesSame("log.txt", "expected/stack01-log.txt");
+		REQUIRE(result);
+		bool resultStack = CheckTextFilesSame("stack.txt", "expected/stack01-stack.txt");
+		REQUIRE(resultStack);
+	}
+	SECTION("fibonacci")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/fibonacci.psm"
+		};
+		ProcessCommandArgs(2, argv);
+		bool result = CheckTextFilesSame("log.txt", "expected/fibonacci-log.txt");
+		REQUIRE(result);
+		bool resultStack = CheckTextFilesSame("stack.txt", "expected/fibonacci-stack.txt");
+		REQUIRE(resultStack);
+	}
+}
 
 //TEST_CASE("Drawing tests (Part 3)", "[student]")
 //{

@@ -110,3 +110,51 @@ struct Jnt : OpBase<std::string>
     const char* GetName() const override { return "jnt"; }
     void Execute(class Machine& machine) override;
 };
+
+struct Push : OpBase<std::string>
+{
+    const char* GetName() const override { return "push"; }
+    void Execute(class Machine& machine) override;
+};
+
+struct Pop : OpBase<std::string>
+{
+    const char* GetName() const override { return "pop"; }
+    void Execute(class Machine& machine) override;
+};
+
+struct Load : OpBase<std::string, std::string>
+{
+    const char* GetName() const override { return "load"; }
+    void Execute(class Machine& machine) override;
+};
+
+struct Store : OpBase<std::string, std::string>
+{
+    const char* GetName() const override { return "store"; }
+    void Execute(class Machine& machine) override;
+};
+
+struct Loadi : OpBase<std::string, int>
+{
+    const char* GetName() const override { return "loadi"; }
+    void Execute(class Machine& machine) override;
+};
+
+struct Storei : OpBase<int, std::string>
+{
+    const char* GetName() const override { return "storei"; }
+    void Execute(class Machine& machine) override;
+};
+
+struct Loadsc : OpBase<std::string, std::string>
+{
+    const char* GetName() const override { return "loadsc"; }
+    void Execute(class Machine& machine) override;
+};
+
+struct Storesc : OpBase<std::string, std::string>
+{
+    const char* GetName() const override { return "storesc"; }
+    void Execute(class Machine& machine) override;
+};

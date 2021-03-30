@@ -20,6 +20,14 @@ Machine::Machine()
     opMap.emplace("cmplt", &CreateOp<Cmplt>);
     opMap.emplace("jt", &CreateOp<Jt>);
     opMap.emplace("jnt", &CreateOp<Jnt>);
+    opMap.emplace("push", &CreateOp<Push>);
+    opMap.emplace("pop", &CreateOp<Pop>);
+    opMap.emplace("load", &CreateOp<Load>);
+    opMap.emplace("store", &CreateOp<Store>);
+    opMap.emplace("loadi", &CreateOp<Loadi>);
+    opMap.emplace("storei", &CreateOp<Storei>);
+    opMap.emplace("loadsc", &CreateOp<Loadsc>);
+    opMap.emplace("storesc", &CreateOp<Storesc>);
     
     reg.emplace("r0", 0);
     reg.emplace("r1", 0);
@@ -73,7 +81,9 @@ bool Machine::GetFlagVal(std::string name) { return flag.at(name); }
 void Machine::Execute()
 {
     std::ofstream output("log.txt");
+    std::ofstream stackOutput("stack.txt");
     print(output);
+    printStack(stackOutput);
     while(flag.at("exit") == false){
         int pcVal = reg.at("pc");
         std::shared_ptr<Op> ptr = mOps.at(pcVal);
@@ -81,7 +91,17 @@ void Machine::Execute()
         output << "Executing: " << ptr->GetName() << std::endl;
         ptr->Execute(*this);
         print(output);
+        printStack(stackOutput);
     }
+}
+
+void Machine::printStack(std::ofstream& output)
+{
+    output << "pc: " << reg.at("pc") << " Stack: ";
+    for(auto i : stack){
+        output << i << " ";
+    }
+    output << std::endl;
 }
 
 void Machine::print(std::ofstream& output)
@@ -107,4 +127,26 @@ void Machine::print(std::ofstream& output)
     output << "test=" << flag.at("test") << std::endl;
     output << "pen=" << flag.at("pen") << std::endl;
     
+}
+
+int Machine::popStack()
+{
+    int val = stack.back();
+    stack.pop_back();
+    return val;
+}
+
+void Machine::pushStack(int reg)
+{
+    stack.push_back(reg);
+}
+
+int Machine::getStack(int index)
+{
+    return stack.at(index);
+}
+
+void Machine::setStack(int index, int val)
+{
+    stack.at(index) = val;
 }
