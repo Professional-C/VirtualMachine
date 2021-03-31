@@ -6,7 +6,6 @@
 //
 
 #include "Exceptions.h"
-#include <stdio.h>
 
 FatalException::FatalException(int error)
 : errorCode(error) {}

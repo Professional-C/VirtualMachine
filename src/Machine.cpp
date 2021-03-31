@@ -82,13 +82,13 @@ void Machine::ReadFile(const std::string source)
 
 void Machine::SetReg(std::string name, int val)
 {
-    if(name.compare("sc") == 0){
+    if(name == "sc"){
         throw NonFatalException(10);
     }
-    else if(name.compare("r0") == 0){
+    else if(name == "r0"){
         throw NonFatalException(11);
     }
-    if(name.compare("tc") == 0){
+    if(name == "tc"){
         switch(val){
             case 0:
                 iDrawer.pen_color(255, 255, 255);
@@ -144,7 +144,7 @@ void Machine::Execute()
         std::ofstream stackOutput("stack.txt");
         print(output);
         printStack(stackOutput);
-        while(flag.at("exit") == false){
+        while(!flag.at("exit")){
             int pcVal = reg.at("pc");
             std::shared_ptr<Op> ptr = mOps.at(pcVal);
             reg["pc"] = pcVal+1;

@@ -21,10 +21,10 @@ void Add::Execute(Machine &machine)
     int val2 = machine.GetRegVal(std::get<1>(mParameters));
     int val3 = machine.GetRegVal(std::get<2>(mParameters));
     machine.SetReg(reg1, val2+val3);
-    if( ((int64_t)val2 + (int64_t)val3) > INT32_MAX){
+    if( (static_cast<int64_t>(val2) + static_cast<int64_t>(val3)) > INT32_MAX){
         throw NonFatalException(12);
     }
-    if( ((int64_t)val2 + (int64_t)val3) < INT32_MIN){
+    if( (static_cast<int64_t>(val2) + static_cast<int64_t>(val3)) < INT32_MIN){
         throw NonFatalException(13);
     }
     
@@ -42,10 +42,10 @@ void Sub::Execute(Machine &machine)
     int val2 = machine.GetRegVal(std::get<1>(mParameters));
     int val3 = machine.GetRegVal(std::get<2>(mParameters));
     machine.SetReg(reg1, val2-val3);
-    if( ((int64_t)val2 - (int64_t)val3) > INT32_MAX){
+    if( (static_cast<int64_t>(val2) - static_cast<int64_t>(val3)) > INT32_MAX){
         throw NonFatalException(12);
     }
-    if( ((int64_t)val2 - (int64_t)val3) < INT32_MIN){
+    if( (static_cast<int64_t>(val2) - static_cast<int64_t>(val3)) < INT32_MIN){
         throw NonFatalException(13);
     }
     
@@ -57,10 +57,10 @@ void Mul::Execute(Machine &machine)
     int val2 = machine.GetRegVal(std::get<1>(mParameters));
     int val3 = machine.GetRegVal(std::get<2>(mParameters));
     machine.SetReg(reg1, val2*val3);
-    if( ((int64_t)val2 * (int64_t)val3) > INT32_MAX){
+    if( (static_cast<int64_t>(val2) * static_cast<int64_t>(val3)) > INT32_MAX){
         throw NonFatalException(12);
     }
-    if( ((int64_t)val2 * (int64_t)val3) < INT32_MIN){
+    if( (static_cast<int64_t>(val2) * static_cast<int64_t>(val3)) < INT32_MIN){
         throw NonFatalException(13);
     }
     
