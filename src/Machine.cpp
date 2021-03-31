@@ -1,4 +1,5 @@
 #include "Machine.h"
+#include "Exceptions.h"
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -81,34 +82,52 @@ void Machine::ReadFile(const std::string source)
 
 void Machine::SetReg(std::string name, int val)
 {
-    reg[name] = val;
+    if(name.compare("sc") == 0){
+        throw NonFatalException(10);
+    }
+    else if(name.compare("r0") == 0){
+        throw NonFatalException(11);
+    }
     if(name.compare("tc") == 0){
         switch(val){
             case 0:
                 iDrawer.pen_color(255, 255, 255);
+                reg[name] = val;
                 break;
             case 1:
                 iDrawer.pen_color(255, 255, 0);
+                reg[name] = val;
                 break;
             case 2:
                 iDrawer.pen_color(255, 0, 255);
+                reg[name] = val;
                 break;
             case 3:
                 iDrawer.pen_color(255, 0, 0);
+                reg[name] = val;
                 break;
             case 4:
                 iDrawer.pen_color(0, 255, 255);
+                reg[name] = val;
                 break;
             case 5:
                 iDrawer.pen_color(0, 255, 0);
+                reg[name] = val;
                 break;
             case 6:
                 iDrawer.pen_color(0, 0, 255);
+                reg[name] = val;
                 break;
             case 7:
                 iDrawer.pen_color(0, 0, 0);
+                reg[name] = val;
                 break;
+            default:
+                throw NonFatalException(14);
         }
+    }
+    else{
+        reg[name] = val;
     }
     
 }
@@ -121,20 +140,29 @@ bool Machine::GetFlagVal(std::string name) { return flag.at(name); }
 
 void Machine::Execute()
 {
-    std::ofstream output("log.txt");
-    std::ofstream stackOutput("stack.txt");
-    print(output);
-    printStack(stackOutput);
-    while(flag.at("exit") == false){
-        int pcVal = reg.at("pc");
-        std::shared_ptr<Op> ptr = mOps.at(pcVal);
-        reg["pc"] = pcVal+1;
-        output << "Executing: " << ptr->GetName() << std::endl;
-        ptr->Execute(*this);
+        std::ofstream output("log.txt");
+        std::ofstream stackOutput("stack.txt");
         print(output);
         printStack(stackOutput);
-    }
-    bImage.save_image("output.bmp");
+        while(flag.at("exit") == false){
+            int pcVal = reg.at("pc");
+            std::shared_ptr<Op> ptr = mOps.at(pcVal);
+            reg["pc"] = pcVal+1;
+            output << "Executing: " << ptr->GetName() << std::endl;
+            try {
+                ptr->Execute(*this);
+            } catch (FatalException& e) {
+                SetReg("ex", e.errorCode);
+                SetFlag("exit", true);
+            } catch (NonFatalException& e){
+                SetReg("ex", e.errorCode);
+            }
+            
+            print(output);
+            printStack(stackOutput);
+        }
+        bImage.save_image("output.bmp");
+    
 }
 
 void Machine::printStack(std::ofstream& output)
@@ -173,23 +201,39 @@ void Machine::print(std::ofstream& output)
 
 int Machine::popStack()
 {
+    if(stack.empty()){
+        throw FatalException(103);
+    }
     int val = stack.back();
     stack.pop_back();
+    reg.at("sc") = reg["sc"] - 1;
     return val;
 }
 
-void Machine::pushStack(int reg)
+void Machine::pushStack(int val)
 {
-    stack.push_back(reg);
+    if(stack.size() == 256){
+        throw FatalException(101);
+    }
+    stack.push_back(val);
+    reg.at("sc") = reg["sc"] + 1;
 }
 
 int Machine::getStack(int index)
 {
+    int sc = reg.at("sc");
+    if((index < 0) || (index >= sc)){
+        throw FatalException(100);
+    }
     return stack.at(index);
 }
 
 void Machine::setStack(int index, int val)
 {
+    int sc = reg.at("sc");
+    if((index < 0) || (index >= sc)){
+        throw FatalException(100);
+    }
     stack.at(index) = val;
 }
 

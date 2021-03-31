@@ -1,5 +1,6 @@
 #include "Ops.h"
 #include "Machine.h"
+#include "Exceptions.h"
 
 void Exit::Execute(Machine& machine)
 {
@@ -15,10 +16,18 @@ void MovI::Execute(Machine& machine)
 
 void Add::Execute(Machine &machine)
 {
+    
     std::string reg1 = std::get<0>(mParameters);
     int val2 = machine.GetRegVal(std::get<1>(mParameters));
     int val3 = machine.GetRegVal(std::get<2>(mParameters));
     machine.SetReg(reg1, val2+val3);
+    if( ((int64_t)val2 + (int64_t)val3) > INT32_MAX){
+        throw NonFatalException(12);
+    }
+    if( ((int64_t)val2 + (int64_t)val3) < INT32_MIN){
+        throw NonFatalException(13);
+    }
+    
 }
 
 void Mov::Execute(Machine &machine)
@@ -33,6 +42,13 @@ void Sub::Execute(Machine &machine)
     int val2 = machine.GetRegVal(std::get<1>(mParameters));
     int val3 = machine.GetRegVal(std::get<2>(mParameters));
     machine.SetReg(reg1, val2-val3);
+    if( ((int64_t)val2 - (int64_t)val3) > INT32_MAX){
+        throw NonFatalException(12);
+    }
+    if( ((int64_t)val2 - (int64_t)val3) < INT32_MIN){
+        throw NonFatalException(13);
+    }
+    
 }
 
 void Mul::Execute(Machine &machine)
@@ -41,6 +57,13 @@ void Mul::Execute(Machine &machine)
     int val2 = machine.GetRegVal(std::get<1>(mParameters));
     int val3 = machine.GetRegVal(std::get<2>(mParameters));
     machine.SetReg(reg1, val2*val3);
+    if( ((int64_t)val2 * (int64_t)val3) > INT32_MAX){
+        throw NonFatalException(12);
+    }
+    if( ((int64_t)val2 * (int64_t)val3) < INT32_MIN){
+        throw NonFatalException(13);
+    }
+    
 }
 
 void Div::Execute(Machine &machine)
@@ -48,7 +71,11 @@ void Div::Execute(Machine &machine)
     std::string reg1 = std::get<0>(mParameters);
     int val2 = machine.GetRegVal(std::get<1>(mParameters));
     int val3 = machine.GetRegVal(std::get<2>(mParameters));
+    if(val3 == 0){
+        throw FatalException(102);
+    }
     machine.SetReg(reg1, val2/val3);
+    
 }
 
 void Inc::Execute(Machine &machine)
@@ -56,6 +83,10 @@ void Inc::Execute(Machine &machine)
     std::string reg = std::get<0>(mParameters);
     int val = machine.GetRegVal(reg);
     machine.SetReg(reg, val+1);
+    if(val+1 > INT32_MAX){
+        throw NonFatalException(12);
+    }
+    
 }
 
 void Dec::Execute(Machine &machine)
@@ -63,6 +94,10 @@ void Dec::Execute(Machine &machine)
     std::string reg = std::get<0>(mParameters);
     int val = machine.GetRegVal(reg);
     machine.SetReg(reg, val-1);
+    if(val-1 < INT32_MIN){
+        throw NonFatalException(13);
+    }
+   
 }
 
 void Jmp::Execute(Machine &machine)
@@ -105,13 +140,11 @@ void Jnt::Execute(Machine &machine)
 void Push::Execute(Machine &machine)
 {
     machine.pushStack(machine.GetRegVal(std::get<0>(mParameters)));
-    machine.SetReg("sc", machine.GetRegVal("sc")+1);
 }
 
 void Pop::Execute(Machine &machine)
 {
     machine.SetReg(std::get<0>(mParameters), machine.popStack());
-    machine.SetReg("sc", machine.GetRegVal("sc")-1);
 }
 
 void Load::Execute(Machine &machine)

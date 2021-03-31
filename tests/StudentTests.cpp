@@ -132,96 +132,96 @@ TEST_CASE("Drawing tests (Part 3)", "[student]")
 	}
 }
 
-//TEST_CASE("Exception tests (Part 4)", "[student]")
-//{
-//	SECTION("excep01")
-//	{
-//		const char* argv[] = {
-//			"tests/tests",
-//			"input/excep01.psm"
-//		};
-//		ProcessCommandArgs(2, argv);
-//		bool result = CheckTextFilesSame("log.txt", "expected/excep01-log.txt");
-//		REQUIRE(result);
-//	}
-//	SECTION("excep02")
-//	{
-//		const char* argv[] = {
-//			"tests/tests",
-//			"input/excep02.psm"
-//		};
-//		ProcessCommandArgs(2, argv);
-//		bool result = CheckTextFilesSame("log.txt", "expected/excep02-log.txt");
-//		REQUIRE(result);
-//	}
-//	SECTION("excep03")
-//	{
-//		const char* argv[] = {
-//			"tests/tests",
-//			"input/excep03.psm"
-//		};
-//		ProcessCommandArgs(2, argv);
-//		bool result = CheckTextFilesSame("log.txt", "expected/excep03-log.txt");
-//		REQUIRE(result);
-//	}
-//	SECTION("excep04")
-//	{
-//		const char* argv[] = {
-//			"tests/tests",
-//			"input/excep04.psm"
-//		};
-//		ProcessCommandArgs(2, argv);
-//		bool result = CheckTextFilesSame("log.txt", "expected/excep04-log.txt");
-//		REQUIRE(result);
-//	}
-//	SECTION("excep05")
-//	{
-//		const char* argv[] = {
-//			"tests/tests",
-//			"input/excep05.psm"
-//		};
-//		ProcessCommandArgs(2, argv);
-//		bool result = CheckTextFilesSame("log.txt", "expected/excep05-log.txt");
-//		REQUIRE(result);
-//	}
-//	SECTION("excep06")
-//	{
-//		const char* argv[] = {
-//			"tests/tests",
-//			"input/excep06.psm"
-//		};
-//		ProcessCommandArgs(2, argv);
-//		bool result = CheckTextFilesSame("log.txt", "expected/excep06-log.txt");
-//		REQUIRE(result);
-//	}
-//	SECTION("excep07")
-//	{
-//		const char* argv[] = {
-//			"tests/tests",
-//			"input/excep07.psm"
-//		};
-//		ProcessCommandArgs(2, argv);
-//		bool result = CheckTextFilesSame("log.txt", "expected/excep07-log.txt");
-//		REQUIRE(result);
-//	}
-//	SECTION("excep08")
-//	{
-//		const char* argv[] = {
-//			"tests/tests",
-//			"input/excep08.psm"
-//		};
-//		ProcessCommandArgs(2, argv);
-//		bool result = CheckTextFilesSame("log.txt", "expected/excep08-log.txt");
-//		REQUIRE(result);
-//	}
-//	SECTION("excep09")
-//	{
-//		const char* argv[] = {
-//			"tests/tests",
-//			"input/excep09.psm"
-//		};
-//		ProcessCommandArgs(2, argv);
-//		bool result = CheckTextFilesSame("log.txt", "expected/excep09-log.txt");
-//		REQUIRE(result);
-//	}
-//}
+TEST_CASE("Exception tests (Part 4)", "[student]")
+{
+	SECTION("excep01")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/excep01.psm"
+		};
+		ProcessCommandArgs(2, argv);
+		bool result = CheckTextFilesSame("log.txt", "expected/excep01-log.txt");
+		REQUIRE(result);
+	}
+	SECTION("excep02")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/excep02.psm"
+		};
+		ProcessCommandArgs(2, argv);
+		bool result = CheckTextFilesSame("log.txt", "expected/excep02-log.txt");
+		REQUIRE(result);
+	}
+	SECTION("excep03")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/excep03.psm"
+		};
+		ProcessCommandArgs(2, argv);
+		bool result = CheckTextFilesSame("log.txt", "expected/excep03-log.txt");
+		REQUIRE(result);
+	}
+	SECTION("excep04")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/excep04.psm"
+		};
+		ProcessCommandArgs(2, argv);
+		bool result = CheckTextFilesSame("log.txt", "expected/excep04-log.txt");
+		REQUIRE(result);
+	}
+	SECTION("excep05")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/excep05.psm"
+		};
+		ProcessCommandArgs(2, argv);
+		bool result = CheckTextFilesSame("log.txt", "expected/excep05-log.txt");
+		REQUIRE(result);
+	}
+	SECTION("excep06")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/excep06.psm"
+		};
+		ProcessCommandArgs(2, argv);
+		bool result = CheckTextFilesSame("log.txt", "expected/excep06-log.txt");
+		REQUIRE(result);
+	}
+	SECTION("excep07")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/excep07.psm"
+		};
+		ProcessCommandArgs(2, argv);
+		bool result = CheckTextFilesSame("log.txt", "expected/excep07-log.txt");
+		REQUIRE(result);
+	}
+	SECTION("excep08")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/excep08.psm"
+		};
+		ProcessCommandArgs(2, argv);
+		bool result = CheckTextFilesSame("log.txt", "expected/excep08-log.txt");
+		REQUIRE(result);
+	}
+	SECTION("excep09")
+	{
+		const char* argv[] = {
+			"tests/tests",
+			"input/excep09.psm"
+		};
+		ProcessCommandArgs(2, argv);
+		bool result = CheckTextFilesSame("log.txt", "expected/excep09-log.txt");
+		REQUIRE(result);
+	}
+}

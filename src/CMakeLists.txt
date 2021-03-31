@@ -11,6 +11,7 @@ set(SOURCE_FILES
 	SrcMain.cpp
 	Ops.cpp
 	Machine.cpp
+    Exceptions.cpp
 )
 
 # Don't change this
